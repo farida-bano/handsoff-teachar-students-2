@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Handoff System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Urdu:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Noto Sans Urdu', sans-serif;
+            direction: rtl;
+        }
+        .agent-card {
+            transition: all 0.3s ease;
+        }
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .handoff-arrow {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .work-item {
+            transition: all 0.2s ease;
+        }
+        .work-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">🎯 Agent Handoff System</h1>
+            <p class="text-lg text-gray-600">Work Distribution for Teachers & Students</p>
+        </div>
+
+        <!-- Agent Flow -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <!-- Sir Humzah/Ameen Aalam -->
+            <div class="agent-card bg-white rounded-xl p-6 shadow-lg border-l-4 border-blue-500">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">👨‍💼</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Sir Humzah</h3>
+                    <p class="text-sm text-gray-600 mb-2">/ Sir Ameen Aalam</p>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Primary Agent</span>
+                    <button onclick="startHandoff('humzah')" class="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Start Handoff
+                    </button>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex items-center justify-center">
+                <div class="handoff-arrow text-4xl text-blue-500">➡️</div>
+            </div>
+
+            <!-- Uneeza Ismail -->
+            <div class="agent-card bg-white rounded-xl p-6 shadow-lg border-l-4 border-green-500">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">👩‍💼</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Uneeza Ismail</h3>
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Coordinator</span>
+                    <button onclick="thankUneeza()" class="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        Thank Uneeza
+                    </button>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex items-center justify-center">
+                <div class="handoff-arrow text-4xl text-green-500">➡️</div>
+            </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <!-- Sunaina -->
+            <div class="agent-card bg-white rounded-xl p-6 shadow-lg border-l-4 border-purple-500">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">👩‍🏫</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Sunaina</h3>
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">Handoff Agent</span>
+                    <button onclick="handoffToFarida()" class="mt-4 w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                        Handoff to Farida
+                    </button>
+                </div>
+            </div>
+
+            <!-- Farida -->
+            <div class="agent-card bg-white rounded-xl p-6 shadow-lg border-l-4 border-pink-500">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">👩‍🎓</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Farida</h3>
+                    <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium">Final Agent</span>
+                    <button onclick="distributeWork()" class="mt-4 w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition-colors">
+                        Distribute Work
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Work Distribution Section -->
+        <div class="bg-white rounded-xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">📋 Work Distribution</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Teachers Work -->
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-600 mb-4 flex items-center">
+                        👨‍🏫 Teachers Work
+                    </h3>
+                    <div id="teacherWork" class="space-y-3">
+                        <div class="work-item p-4 bg-blue-50 rounded-lg cursor-pointer border border-blue-200">
+                            <h4 class="font-medium text-gray-800">Lesson Planning</h4>
+                            <p class="text-sm text-gray-600">Prepare weekly lesson plans</p>
+                        </div>
+                        <div class="work-item p-4 bg-blue-50 rounded-lg cursor-pointer border border-blue-200">
+                            <h4 class="font-medium text-gray-800">Assessment Creation</h4>
+                            <p class="text-sm text-gray-600">Design tests and quizzes</p>
+                        </div>
+                        <div class="work-item p-4 bg-blue-50 rounded-lg cursor-pointer border border-blue-200">
+                            <h4 class="font-medium text-gray-800">Student Evaluation</h4>
+                            <p class="text-sm text-gray-600">Grade assignments and provide feedback</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Students Work -->
+                <div>
+                    <h3 class="text-xl font-semibold text-green-600 mb-4 flex items-center">
+                        👨‍🎓 Students Work
+                    </h3>
+                    <div id="studentWork" class="space-y-3">
+                        <div class="work-item p-4 bg-green-50 rounded-lg cursor-pointer border border-green-200">
+                            <h4 class="font-medium text-gray-800">Assignment Submission</h4>
+                            <p class="text-sm text-gray-600">Complete and submit homework</p>
+                        </div>
+                        <div class="work-item p-4 bg-green-50 rounded-lg cursor-pointer border border-green-200">
+                            <h4 class="font-medium text-gray-800">Project Work</h4>
+                            <p class="text-sm text-gray-600">Work on group projects</p>
+                        </div>
+                        <div class="work-item p-4 bg-green-50 rounded-lg cursor-pointer border border-green-200">
+                            <h4 class="font-medium text-gray-800">Study Sessions</h4>
+                            <p class="text-sm text-gray-600">Attend study groups and tutorials</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Work Button -->
+            <div class="mt-8 text-center">
+                <button onclick="addNewWork()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105">
+                    ➕ Add New Work Item
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Display -->
+        <div id="statusDisplay" class="mt-8 p-6 bg-gray-100 rounded-xl text-center hidden">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">System Status</h3>
+            <p id="statusMessage" class="text-gray-600"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentAgent = 'humzah';
+        
+        function showStatus(message, type = 'info') {
+            const statusDisplay = document.getElementById('statusDisplay');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            statusDisplay.className = `mt-8 p-6 rounded-xl text-center ${
+                type === 'success' ? 'bg-green-100 border border-green-200' :
+                type === 'warning' ? 'bg-yellow-100 border border-yellow-200' :
+                'bg-blue-100 border border-blue-200'
+            }`;
+            
+            statusMessage.textContent = message;
+            statusDisplay.classList.remove('hidden');
+            
+            setTimeout(() => {
+                statusDisplay.classList.add('hidden');
+            }, 3000);
+        }
+        
+        function startHandoff(agent) {
+            currentAgent = 'uneeza';
+            showStatus('🚀 Handoff initiated from Sir Humzah/Sir Ameen Aalam to Uneeza Ismail', 'info');
+        }
+        
+        function thankUneeza() {
+            showStatus('🙏 Thank you Uneeza Ismail for your coordination! Proceeding to next agent...', 'success');
+            setTimeout(() => {
+                currentAgent = 'sunaina';
+                showStatus('📋 Uneeza has handed off to Sunaina', 'info');
+            }, 2000);
+        }
+        
+        function handoffToFarida() {
+            currentAgent = 'farida';
+            showStatus('🔄 Sunaina has successfully handed off to Farida', 'success');
+        }
+        
+        function distributeWork() {
+            showStatus('📊 Farida is now distributing work to teachers and students', 'success');
+            
+            // Add animation to work items
+            const workItems = document.querySelectorAll('.work-item');
+            workItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        item.style.transform = 'scale(1)';
+                    }, 200);
+                }, index * 100);
+            });
+        }
+        
+        function addNewWork() {
+            const workType = prompt('Add work for Teachers or Students? (Type: teacher/student)');
+            const workTitle = prompt('Enter work title:');
+            const workDescription = prompt('Enter work description:');
+            
+            if (workType && workTitle && workDescription) {
+                const container = workType.toLowerCase() === 'teacher' ? 
+                    document.getElementById('teacherWork') : 
+                    document.getElementById('studentWork');
+                
+                const colorClass = workType.toLowerCase() === 'teacher' ? 'blue' : 'green';
+                
+                const newWorkItem = document.createElement('div');
+                newWorkItem.className = `work-item p-4 bg-${colorClass}-50 rounded-lg cursor-pointer border border-${colorClass}-200`;
+                newWorkItem.innerHTML = `
+                    <h4 class="font-medium text-gray-800">${workTitle}</h4>
+                    <p class="text-sm text-gray-600">${workDescription}</p>
+                `;
+                
+                container.appendChild(newWorkItem);
+                showStatus(`✅ New work item added for ${workType}s: ${workTitle}`, 'success');
+            }
+        }
+        
+        // Add click handlers for work items
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.work-item')) {
+                const workItem = e.target.closest('.work-item');
+                const title = workItem.querySelector('h4').textContent;
+                showStatus(`📌 Selected work item: ${title}`, 'info');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9807e8d795b621e4',t:'MTc1ODEwNDgzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
